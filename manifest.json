@@ -1,0 +1,44 @@
+{
+    "manifest_version": 3,
+    "name": "PhishGuard",
+    "version": "1.0",
+    "description": "A browser extension to detect phishing attempts in emails.",
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "scripting",
+      "storage",
+      "declarativeNetRequest",
+      "declarativeNetRequestWithHostAccess"
+    ],
+    "host_permissions": [
+      "*://mail.google.com/*",
+      "*://outlook.live.com/*",
+      "*://mail.yahoo.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "*://mail.google.com/*",
+          "*://outlook.live.com/*",
+          "*://mail.yahoo.com/*"
+        ],
+        "js": ["content.js"]
+      }
+    ],
+    "declarative_net_request": {
+      "rule_resources": [
+        {
+          "id": "ruleset_1",
+          "enabled": true,
+          "path": "rules.json"
+        }
+      ]
+    }
+  }
